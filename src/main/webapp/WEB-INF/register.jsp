@@ -1,4 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <html>
 <head>
     <jsp:include page="partials/head.jsp">
@@ -13,6 +14,7 @@
             <div class="form-group">
                 <label for="username">Username</label>
                 <input id="username" name="username" class="form-control" type="text">
+                <p><c:out value="${usernameIsUnique}" /></p>
             </div>
             <div class="form-group">
                 <label for="email">Email</label>

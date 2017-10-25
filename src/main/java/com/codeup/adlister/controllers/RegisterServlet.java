@@ -16,11 +16,12 @@ public class RegisterServlet extends HttpServlet {
         request.getRequestDispatcher("/WEB-INF/register.jsp").forward(request, response);
     }
 
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         String username = request.getParameter("username");
         String email = request.getParameter("email");
         String password = request.getParameter("password");
         String passwordConfirmation = request.getParameter("confirm_password");
+        String usernameIsUnique;
 
         // validate input
         boolean inputHasErrors = username.isEmpty()
@@ -28,14 +29,28 @@ public class RegisterServlet extends HttpServlet {
             || password.isEmpty()
             || (! password.equals(passwordConfirmation));
 
+
         if (inputHasErrors) {
             response.sendRedirect("/register");
             return;
         }
 
-        // create and save a new user
-        User user = new User(username, email, password);
-        DaoFactory.getUsersDao().insert(user);
-        response.sendRedirect("/login");
+        // check if username is already in database
+        User userIsFound = DaoFactory.getUsersDao().findByUsername(username);
+        // if username IS found then send error message to .jsp
+        if(userIsFound != null) {
+            usernameIsUnique = "Sorry, that username is already taken.";
+            System.out.println("Username is not unique");
+        } else {
+            usernameIsUnique = "You can use this username!";
+            System.out.println("Username is unique");
+            // create and save a new user
+            User user = new User(username, email, password);
+            DaoFactory.getUsersDao().insert(user);
+            response.sendRedirect("/login");
+        }
+
+        request.setAttribute("usernameIsUnique", usernameIsUnique);
+        request.getRequestDispatcher("WEB-INF/register.jsp").forward(request, response);
     }
 }
