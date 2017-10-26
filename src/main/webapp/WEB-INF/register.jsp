@@ -15,31 +15,22 @@
                 <label for="username">Username</label>
                 <input id="username" name="username" class="form-control" type="text">
                 <p><c:out value="${usernameIsUnique}" /></p>
-                <c:if test="${username.isEmpty()}">
                 <p><c:out value="${usernameIsEmpty}" /></p>
-                </c:if>
             </div>
             <div class="form-group">
                 <label for="email">Email</label>
                 <input id="email" name="email" class="form-control" type="text">
-                <c:if test="${email.isEmpty()}">
-                    <p>Please enter a valid email</p>
-                </c:if>
+                    <p><c:out value="${emailIsEmpty}" /></p>
             </div>
             <div class="form-group">
                 <label for="password">Password</label>
                 <input id="password" name="password" class="form-control" type="password">
-                <c:if test="${password.isEmpty()}">
-                    <p>Please enter a valid password</p>
-                </c:if>
+                    <p><c:out value="${passwordIsEmpty}" /></p>
             </div>
             <div class="form-group">
                 <label for="confirm_password">Confirm Password</label>
                 <input id="confirm_password" name="confirm_password" class="form-control" type="password">
-                <c:if test="${confirm_password.isEmpty()}">
-                    <p>Please enter a valid password</p>
-                </c:if>
-
+                <p><c:out value="${passwordConfirmationIsEmpty}" /></p>
             </div>
             <input type="submit" class="btn btn-primary btn-block">
         </form>

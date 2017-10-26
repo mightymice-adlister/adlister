@@ -22,31 +22,36 @@ public class RegisterServlet extends HttpServlet {
         String password = request.getParameter("password");
         String passwordConfirmation = request.getParameter("confirm_password");
         String usernameIsUnique;
-        Boolean fieldIsEmpty = false;
         String usernameIsEmpty;
+        String emailIsEmpty;
+        String passwordIsEmpty;
+        String passwordConfirmationIsEmpty;
+
         System.out.println("Here's the uername: " + username);
         // validate input
         boolean inputHasErrors = username.isEmpty()
             || email.isEmpty()
             || password.isEmpty()
             || (! password.equals(passwordConfirmation));
-
-        // If input field is empty
-        if (username.isEmpty()) {
-            usernameIsEmpty = "Please enter a valid username";
-            request.setAttribute("usernameIsEmpty", usernameIsEmpty);
-        }
-        if (email.isEmpty()) {
-            fieldIsEmpty = true;
-        }
-        if (password.isEmpty()) {
-            fieldIsEmpty = true;
-        }
-
         if (inputHasErrors) {
-
-//            request.getRequestDispatcher("WEB-INF/register.jsp").forward(request, response);
-            response.sendRedirect("/register");
+            if (username.isEmpty()) {
+                usernameIsEmpty = "Please enter a valid username";
+                request.setAttribute("usernameIsEmpty", usernameIsEmpty);
+            }
+            if (email.isEmpty()) {
+                emailIsEmpty = "Please enter a valid email";
+                request.setAttribute("emailIsEmpty", emailIsEmpty);
+            }
+            if (password.isEmpty()) {
+                passwordIsEmpty = "Please enter a valid password";
+                request.setAttribute("passwordIsEmpty", passwordIsEmpty);
+            }
+            if (passwordConfirmation.isEmpty()) {
+                passwordConfirmationIsEmpty = "Please confirm your password";
+                request.setAttribute("passwordConfirmationIsEmpty", passwordConfirmationIsEmpty);
+            }
+            request.getRequestDispatcher("WEB-INF/register.jsp").forward(request, response);
+//            response.sendRedirect("/register");
             return;
         }
 
@@ -70,8 +75,7 @@ public class RegisterServlet extends HttpServlet {
         request.setAttribute("username", username);
         request.setAttribute("email", email);
         request.setAttribute("password", password);
-        request.setAttribute("fieldIsEmpty", fieldIsEmpty);
         request.setAttribute("usernameIsUnique", usernameIsUnique);
-        request.getRequestDispatcher("WEB-INF/register.jsp").forward(request, response);
+//        request.getRequestDispatcher("WEB-INF/register.jsp").forward(request, response);
     }
 }
