@@ -14,8 +14,11 @@
 </form>
 
 <c:forEach var="ad" items="${ads}">
-    <div class="col-md-6">
-        <h2><c:out value = "${ad.title}"/></h2>
+    <c class="col-md-6">
+        <c:choose>
+        <c:when test="${ad.id == 0}"><h2><c:out value = "${ad.title}"/></h2></c:when>
+            <c:otherwise><a href="/ads/view?id=<c:out value="${ad.id}"/>"><h2><c:out value = "${ad.title}"/></h2></a></c:otherwise>
+            </c:choose>
         <p><c:out value = "${ad.description}"/></p>
     </div>
 </c:forEach>
