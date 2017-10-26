@@ -9,7 +9,7 @@
 <body>
 <jsp:include page="/WEB-INF/partials/navbar.jsp" />
 <form action="search" method="get">
-    <input type="text" name="search-query">
+    <input type="text" name="search-query" value="<c:out value="${sessionScope.previousSearch}"/>">
     <input type="submit" placeholder="search">
 </form>
 

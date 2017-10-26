@@ -21,6 +21,7 @@ public class SearchAdsServlet extends HttpServlet {
         adList = DaoFactory.getAdsDao().searchAll(request.getParameter("search-query"));
         String previousSearchQuery = request.getParameter("search-query");
         request.setAttribute("ads", adList);
+        request.getSession().setAttribute("previousSearch", previousSearchQuery);
         request.getRequestDispatcher("/WEB-INF/ads/search.jsp").forward(request, response);
     }
 }
