@@ -23,6 +23,8 @@ public class RegisterServlet extends HttpServlet {
         String passwordConfirmation = request.getParameter("confirm_password");
         String usernameIsUnique;
         Boolean fieldIsEmpty = false;
+        String usernameIsEmpty;
+        System.out.println("Here's the uername: " + username);
         // validate input
         boolean inputHasErrors = username.isEmpty()
             || email.isEmpty()
@@ -31,7 +33,8 @@ public class RegisterServlet extends HttpServlet {
 
         // If input field is empty
         if (username.isEmpty()) {
-            fieldIsEmpty = true;
+            usernameIsEmpty = "Please enter a valid username";
+            request.setAttribute("usernameIsEmpty", usernameIsEmpty);
         }
         if (email.isEmpty()) {
             fieldIsEmpty = true;
@@ -40,10 +43,12 @@ public class RegisterServlet extends HttpServlet {
             fieldIsEmpty = true;
         }
 
-//        if (inputHasErrors) {
-//            response.sendRedirect("/register");
-//            return;
-//        }
+        if (inputHasErrors) {
+
+//            request.getRequestDispatcher("WEB-INF/register.jsp").forward(request, response);
+            response.sendRedirect("/register");
+            return;
+        }
 
         // check if username is already in database
         User userIsFound = DaoFactory.getUsersDao().findByUsername(username);
@@ -59,6 +64,12 @@ public class RegisterServlet extends HttpServlet {
             DaoFactory.getUsersDao().insert(user);
             response.sendRedirect("/login");
         }
+
+
+
+        request.setAttribute("username", username);
+        request.setAttribute("email", email);
+        request.setAttribute("password", password);
         request.setAttribute("fieldIsEmpty", fieldIsEmpty);
         request.setAttribute("usernameIsUnique", usernameIsUnique);
         request.getRequestDispatcher("WEB-INF/register.jsp").forward(request, response);

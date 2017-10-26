@@ -16,7 +16,7 @@
                 <input id="username" name="username" class="form-control" type="text">
                 <p><c:out value="${usernameIsUnique}" /></p>
                 <c:if test="${username.isEmpty()}">
-                <p>Please enter a valid username</p>
+                <p><c:out value="${usernameIsEmpty}" /></p>
                 </c:if>
             </div>
             <div class="form-group">
