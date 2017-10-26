@@ -18,10 +18,12 @@ public class SearchAdsServlet extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        adList = DaoFactory.getAdsDao().searchAll(request.getParameter("search-query"));
-        String previousSearchQuery = request.getParameter("search-query");
-        request.setAttribute("ads", adList);
-        request.getSession().setAttribute("previousSearch", previousSearchQuery);
+        if(request.getParameter("search-query") != null) {
+            adList = DaoFactory.getAdsDao().searchAll(request.getParameter("search-query"));
+            String previousSearchQuery = request.getParameter("search-query");
+            request.setAttribute("ads", adList);
+            request.getSession().setAttribute("previousSearch", previousSearchQuery);
+        }
         request.getRequestDispatcher("/WEB-INF/ads/search.jsp").forward(request, response);
     }
 }
