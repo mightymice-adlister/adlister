@@ -86,15 +86,19 @@ public class MySQLAdsDao implements Ads {
         return ads;
     }
 
+
     @Override
     public List<Ad> searchAll(String terms) {
         Ad noResultsProtected = new Ad(noResults.getId(), noResults.getTitle(), noResults.getDescription());
         PreparedStatement stmt;
-        String query = "SELECT * FROM ads WHERE description LIKE '%"+terms+"%' OR title LIKE '%"+terms+"%';";
+        terms = "%"+terms+"%";
+        String query = "SELECT * FROM ads WHERE description LIKE ? OR title LIKE ?";
 
         List<Ad> ads = new ArrayList<>();
         try{
             stmt = connection.prepareStatement(query);
+            stmt.setString(1, terms);
+            stmt.setString(2, terms);
             ResultSet rs = stmt.executeQuery();
             while(rs.next()){
                 ads.add(new Ad(rs.getLong("id"), rs.getLong("user_id"), rs.getString("title"), rs.getString("description")));
@@ -108,5 +112,30 @@ public class MySQLAdsDao implements Ads {
         }
         return ads;
 
+    }
+
+    @Override
+    public List<Ad> viewAdsByUser(Long userId) {
+        Ad noResultsProtected = new Ad(noResults.getId(), noResults.getTitle(), noResults.getDescription());
+        String query = "SELECT * FROM ads WHERE user_id = ?";
+        PreparedStatement stmt;
+        List<Ad> adsByUser = new ArrayList<>();
+        try {
+            stmt = connection.prepareStatement(query);
+            stmt.setLong(1, userId);
+            ResultSet rs = stmt.executeQuery();
+            while(rs.next()){
+                adsByUser.add(new Ad(rs.getLong("id"), rs.getLong("user_id"), rs.getString("title"), rs.getString("description")));
+
+            }
+        }catch(SQLException e){
+            throw new RuntimeException("Could not get ads for this user", e);
+        }
+        if (adsByUser.isEmpty()){
+            noResultsProtected.setDescription(noResultsProtected.getDescription()+" from user with id:"+userId);
+            adsByUser.add(noResultsProtected);
+        }
+
+        return adsByUser;
     }
 }
