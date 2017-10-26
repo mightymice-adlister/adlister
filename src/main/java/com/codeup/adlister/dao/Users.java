@@ -8,4 +8,5 @@ public interface Users {
     User findByUsername(String username);
     Long insert(User user);
     void updateEmail(User user, String newEmail);
+    void changePassword(User user, String newPassword);
 }

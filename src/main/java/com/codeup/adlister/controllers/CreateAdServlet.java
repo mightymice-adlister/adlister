@@ -4,6 +4,7 @@ import com.codeup.adlister.dao.DaoFactory;
 import com.codeup.adlister.models.Ad;
 import com.codeup.adlister.models.User;
 
+import javax.servlet.Servlet;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -23,14 +24,42 @@ public class CreateAdServlet extends HttpServlet {
     }
 
 
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         User user = (User) request.getSession().getAttribute("user");
-        Ad ad = new Ad(
-            user.getId(),
-            request.getParameter("title"),
-            request.getParameter("description")
-        );
-        DaoFactory.getAdsDao().insert(ad);
-        response.sendRedirect("/ads");
+        String title = request.getParameter("title");
+        String description = request.getParameter("description");
+        String titleIsEmpty;
+        String descriptionIsEmpty;
+        System.out.println("Title: " + title);
+        if (user == null) {
+            response.sendRedirect("/login");
+            return;
+        }
+        // validate input
+        boolean inputHasErrors = title.isEmpty()
+                || description.isEmpty();
+        if (inputHasErrors) {
+            if (title.isEmpty()) {
+                titleIsEmpty = "Please enter a title";
+                request.setAttribute("titleIsEmpty", titleIsEmpty);
+            }
+
+            if (description.isEmpty()) {
+                descriptionIsEmpty = "Please enter a description";
+                request.setAttribute("descriptionIsEmpty", descriptionIsEmpty);
+            }
+            request.getRequestDispatcher("/WEB-INF/ads/create.jsp").forward(request, response);
+        } else {
+            Ad ad = new Ad(
+                    user.getId(),
+                    title,
+                    description
+            );
+            DaoFactory.getAdsDao().insert(ad);
+            response.sendRedirect("/ads");
+        }
+
+
+
     }
 }

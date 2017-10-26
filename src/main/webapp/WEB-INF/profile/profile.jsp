@@ -13,8 +13,10 @@
     <div class="container">
         <h1>Welcome, <c:out value="${user.username}"/>!</h1>
         <h3>Current email is <c:out value = "${user.email}"/></h3>
+        <p><c:out value = "${passChange}"/></p>
         <a class="button" href="/profile/edit">Edit profile</a>
         <a class="button" href="/profile/ads">View ads</a>
+        <a class="button" href="/profile/password_change">Change password</a>
     </div>
 
 </body>
