@@ -22,18 +22,28 @@ public class RegisterServlet extends HttpServlet {
         String password = request.getParameter("password");
         String passwordConfirmation = request.getParameter("confirm_password");
         String usernameIsUnique;
-
+        Boolean fieldIsEmpty = false;
         // validate input
         boolean inputHasErrors = username.isEmpty()
             || email.isEmpty()
             || password.isEmpty()
             || (! password.equals(passwordConfirmation));
 
-
-        if (inputHasErrors) {
-            response.sendRedirect("/register");
-            return;
+        // If input field is empty
+        if (username.isEmpty()) {
+            fieldIsEmpty = true;
         }
+        if (email.isEmpty()) {
+            fieldIsEmpty = true;
+        }
+        if (password.isEmpty()) {
+            fieldIsEmpty = true;
+        }
+
+//        if (inputHasErrors) {
+//            response.sendRedirect("/register");
+//            return;
+//        }
 
         // check if username is already in database
         User userIsFound = DaoFactory.getUsersDao().findByUsername(username);
@@ -49,7 +59,7 @@ public class RegisterServlet extends HttpServlet {
             DaoFactory.getUsersDao().insert(user);
             response.sendRedirect("/login");
         }
-
+        request.setAttribute("fieldIsEmpty", fieldIsEmpty);
         request.setAttribute("usernameIsUnique", usernameIsUnique);
         request.getRequestDispatcher("WEB-INF/register.jsp").forward(request, response);
     }
