@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -20,11 +21,13 @@
                         <i class="material-icons prefix">account_circle</i>
                         <input id="icon_prefix" type="text" class="validate">
                         <label for="icon_prefix">First Name</label>
+                        <p><c:out value="${usernameIsEmpty}" /></p>
                     </div>
                     <div class="input-field col s6">
                         <i class="material-icons prefix">lock</i>
                         <input id="icon_lock" type="password" class="validate">
                         <label for="icon_lock">password</label>
+                        <p><c:out value="${passwordIsEmpty}" /></p>
                     </div>
                 </div>
                 <button type="submit" class="waves-effect waves-light btn-large">Login!</button>

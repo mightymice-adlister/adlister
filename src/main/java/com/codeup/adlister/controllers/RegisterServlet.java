@@ -22,16 +22,35 @@ public class RegisterServlet extends HttpServlet {
         String password = request.getParameter("password");
         String passwordConfirmation = request.getParameter("confirm_password");
         String usernameIsUnique;
+        String usernameIsEmpty;
+        String emailIsEmpty;
+        String passwordIsEmpty;
+        String passwordConfirmationIsEmpty;
 
+        System.out.println("Here's the uername: " + username);
         // validate input
         boolean inputHasErrors = username.isEmpty()
             || email.isEmpty()
             || password.isEmpty()
             || (! password.equals(passwordConfirmation));
-
-
         if (inputHasErrors) {
-            response.sendRedirect("/register");
+            if (username.isEmpty()) {
+                usernameIsEmpty = "Please enter a valid username";
+                request.setAttribute("usernameIsEmpty", usernameIsEmpty);
+            }
+            if (email.isEmpty()) {
+                emailIsEmpty = "Please enter a valid email";
+                request.setAttribute("emailIsEmpty", emailIsEmpty);
+            }
+            if (password.isEmpty()) {
+                passwordIsEmpty = "Please enter a valid password";
+                request.setAttribute("passwordIsEmpty", passwordIsEmpty);
+            }
+            if (passwordConfirmation.isEmpty()) {
+                passwordConfirmationIsEmpty = "Please confirm your password";
+                request.setAttribute("passwordConfirmationIsEmpty", passwordConfirmationIsEmpty);
+            }
+            request.getRequestDispatcher("WEB-INF/register.jsp").forward(request, response);
             return;
         }
 
@@ -54,6 +73,12 @@ public class RegisterServlet extends HttpServlet {
         }
 
 
-        request.getRequestDispatcher("WEB-INF/register.jsp").forward(request, response);
+
+
+        request.setAttribute("username", username);
+        request.setAttribute("email", email);
+        request.setAttribute("password", password);
+        request.setAttribute("usernameIsUnique", usernameIsUnique);
+//        request.getRequestDispatcher("WEB-INF/register.jsp").forward(request, response);
     }
 }
