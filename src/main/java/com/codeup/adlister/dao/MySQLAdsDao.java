@@ -9,6 +9,7 @@ import java.util.List;
 
 public class MySQLAdsDao implements Ads {
     private Connection connection = null;
+    private Ad noResults = new Ad(0L, "None", "Could not find results for: ");
 
     public MySQLAdsDao(Config config) {
         try {
@@ -83,5 +84,29 @@ public class MySQLAdsDao implements Ads {
             ads.add(extractAd(rs));
         }
         return ads;
+    }
+
+    @Override
+    public List<Ad> searchAll(String terms) {
+        Ad noResultsProtected = new Ad(noResults.getId(), noResults.getTitle(), noResults.getDescription());
+        PreparedStatement stmt;
+        String query = "SELECT * FROM ads WHERE description LIKE '%"+terms+"%' OR title LIKE '%"+terms+"%';";
+
+        List<Ad> ads = new ArrayList<>();
+        try{
+            stmt = connection.prepareStatement(query);
+            ResultSet rs = stmt.executeQuery();
+            while(rs.next()){
+                ads.add(new Ad(rs.getLong("id"), rs.getLong("user_id"), rs.getString("title"), rs.getString("description")));
+            }
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+        if (ads.isEmpty()){
+            noResultsProtected.setDescription(noResultsProtected.getDescription()+terms);
+            ads.add(noResultsProtected);
+        }
+        return ads;
+
     }
 }

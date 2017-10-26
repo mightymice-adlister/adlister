@@ -59,15 +59,19 @@ public class RegisterServlet extends HttpServlet {
         // if username IS found then send error message to .jsp
         if(userIsFound != null) {
             usernameIsUnique = "Sorry, that username is already taken.";
+            request.setAttribute("usernameIsUnique", usernameIsUnique);
             System.out.println("Username is not unique");
         } else {
             usernameIsUnique = "You can use this username!";
             System.out.println("Username is unique");
+            request.setAttribute("usernameIsUnique", usernameIsUnique);
             // create and save a new user
             User user = new User(username, email, password);
             DaoFactory.getUsersDao().insert(user);
             response.sendRedirect("/login");
+            return;
         }
+
 
 
 
