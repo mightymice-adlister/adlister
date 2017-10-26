@@ -51,7 +51,6 @@ public class RegisterServlet extends HttpServlet {
                 request.setAttribute("passwordConfirmationIsEmpty", passwordConfirmationIsEmpty);
             }
             request.getRequestDispatcher("WEB-INF/register.jsp").forward(request, response);
-//            response.sendRedirect("/register");
             return;
         }
 
