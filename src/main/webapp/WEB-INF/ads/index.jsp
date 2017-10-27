@@ -18,10 +18,10 @@
         </div>
         <div class="row">
         <c:forEach var="ad" items="${ads}">
-                <div class="col s6 m7">
+                <div class="col s6 m6 l6">
                     <div class="card">
                         <div class="card-image">
-                            <img src="https://source.unsplash.com/collection/190727/">
+                            <img src="https://source.unsplash.com/collection/190727/350x350?sig=${ad.id}">
                             <span class="card-title"><c:out value = "${ad.title}"/></span>
                         </div>
                         <div class="card-content">
