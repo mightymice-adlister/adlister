@@ -18,3 +18,10 @@ main {
 
 
 }
+
+.custom-chip-link{
+
+    /*line-height: 250%;*/
+    position: relative;
+    top: 15px;
+}

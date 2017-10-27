@@ -46,6 +46,7 @@
                         <li><a href="/ads/view">View All</a></li>
                     </ul>
                     <ul class="right hide-on-med-and-down">
+                        <li><a class="custom-chip-link" href="/profile"><div class="chip custom-chip"><img src="https://source.unsplash.com/collection/159213/300x300?sig="><c:out value="${user.username}"/></div></a></li>
                         <li><a href="/profile">Profile</a></li>
                         <li><a href="/logout">Logout</a></li>
                         <!-- Dropdown Trigger -->
