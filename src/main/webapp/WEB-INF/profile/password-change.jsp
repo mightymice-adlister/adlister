@@ -28,5 +28,7 @@
         </form>
 </div>
 
+<jsp:include page="/WEB-INF/partials/footer.jsp" />
+<jsp:include page="/WEB-INF/partials/materializejs.jsp" />
 </body>
 </html>
