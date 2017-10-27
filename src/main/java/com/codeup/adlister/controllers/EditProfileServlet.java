@@ -21,6 +21,7 @@ public class EditProfileServlet extends HttpServlet {
             response.sendRedirect("/profile/edit");
         } else {
             DaoFactory.getUsersDao().updateEmail(user, email);
+            request.getSession().setAttribute("user", DaoFactory.getUsersDao().findByUsername(user.getUsername()));
             response.sendRedirect("/profile");
         }
 

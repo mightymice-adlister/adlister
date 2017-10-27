@@ -26,7 +26,7 @@ public class MySQLAdsDao implements Ads {
 
     @Override
     public List<Ad> all() {
-        PreparedStatement stmt = null;
+        PreparedStatement stmt;
         try {
             stmt = connection.prepareStatement("SELECT * FROM ads");
             ResultSet rs = stmt.executeQuery();
@@ -35,14 +35,14 @@ public class MySQLAdsDao implements Ads {
             throw new RuntimeException("Error retrieving all ads.", e);
         }
     }
-    private String createSQLStatement(Long adId){
-        return "SELECT * FROM ads WHERE id = "+adId;
-    }
+
     @Override
     public Ad viewOneAd(Long adId){
         PreparedStatement stmt;
+        String sql = "SELECT * FROM ads WHERE id = ?";
         try{
-            stmt = connection.prepareStatement(createSQLStatement(adId));
+            stmt = connection.prepareStatement(sql);
+            stmt.setLong(1, adId);
             ResultSet rs = stmt.executeQuery();
             rs.next();
             return extractAd(rs);
@@ -91,14 +91,14 @@ public class MySQLAdsDao implements Ads {
     public List<Ad> searchAll(String terms) {
         Ad noResultsProtected = new Ad(noResults.getId(), noResults.getTitle(), noResults.getDescription());
         PreparedStatement stmt;
-        terms = "%"+terms+"%";
+        String termsWildCard = "%"+terms+"%";
         String query = "SELECT * FROM ads WHERE description LIKE ? OR title LIKE ?";
 
         List<Ad> ads = new ArrayList<>();
         try{
             stmt = connection.prepareStatement(query);
-            stmt.setString(1, terms);
-            stmt.setString(2, terms);
+            stmt.setString(1, termsWildCard);
+            stmt.setString(2, termsWildCard);
             ResultSet rs = stmt.executeQuery();
             while(rs.next()){
                 ads.add(new Ad(rs.getLong("id"), rs.getLong("user_id"), rs.getString("title"), rs.getString("description")));

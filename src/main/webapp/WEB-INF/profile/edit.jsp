@@ -14,6 +14,7 @@
             <label for="email">Change Email</label>
             <input id="email" name="email" class="form-control" value="${user.email}">
             <input type="submit" class="btn btn-primary" value="Edit">
+            <a href="/profile" class="btn btn-primary">Cancel</a>
         </div>
     </form>
 </div>
