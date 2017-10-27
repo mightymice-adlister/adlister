@@ -2,7 +2,6 @@
 <header>
 <nav>
         <div class="nav-wrapper teal lighten-2">
-            <%--<div class="row"></div>--%>
             <div class="col s3 offset-s2">
                 <c:if test="${sessionScope.user.username != null}">
                     <span class="user-text left">Welcome, <c:out value="${sessionScope.user.username}" /></span>
@@ -15,9 +14,7 @@
             </div>
             <div class="col s5">
                 <ul id="nav-mobile" class="right hide-on-sm-and-down">
-                    <%--<li><a href="/login">Login</a></li>--%>
-                    <%--<li><a href="/logout">Logout</a></li>--%>
-                    <c:if test="${sessionScope.user.username != null}">
+
                         <ul id="dropdown1" class="dropdown-content">
                             <li><a>Ads</a></li>
                             <li class="divider"></li>
@@ -29,15 +26,21 @@
                                     <li><a href="/login">Login</a></li>
                                     <li><a href="/logout">Logout</a></li>
                                     <li><a href="/register">Register!</a></li>
-                                    <!-- Dropdown Trigger -->
-                                    <li><a class="dropdown-button" href="#!" data-activates="dropdown1">Ads<i class="material-icons right">arrow_drop_down</i></a></li>
+                                    <c:choose>
+                                        <c:when test="${sessionScope.user.username == null}">
+                                            <li><a href="/ads/view">Ads</a></li>
+                                        </c:when>
+
+                                        <c:otherwise>
+                                            <!-- Dropdown Trigger -->
+                                            <li><a class="dropdown-button" href="#!" data-activates="dropdown1">Ads<i class="material-icons right">arrow_drop_down</i></a></li>
+                                        </c:otherwise>
+                                    </c:choose>
                                 </ul>
-                    </c:if>
-                    <%--<li><a href="/ads">Ads</a></li>--%>
-                    <%--<li><a href="/register">Register!</a></li>--%>
+
+
                 </ul>
             </div>
-        <%--</div>--%>
         </div>
 
         <%--<div class="nav-content teal lighten-3">--%>
