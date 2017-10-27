@@ -27,7 +27,7 @@ public class RegisterServlet extends HttpServlet {
         String passwordIsEmpty;
         String passwordConfirmationIsEmpty;
 
-        System.out.println("Here's the uername: " + username);
+        System.out.println("Here's the username: " + username);
         // validate input
         boolean inputHasErrors = username.isEmpty()
             || email.isEmpty()
@@ -38,14 +38,17 @@ public class RegisterServlet extends HttpServlet {
                 usernameIsEmpty = "Please enter a valid username";
                 request.setAttribute("usernameIsEmpty", usernameIsEmpty);
             }
+            request.setAttribute("usernameEntered", username);
             if (email.isEmpty()) {
                 emailIsEmpty = "Please enter a valid email";
                 request.setAttribute("emailIsEmpty", emailIsEmpty);
             }
+            request.setAttribute("emailEntered", email);
             if (password.isEmpty()) {
                 passwordIsEmpty = "Please enter a valid password";
                 request.setAttribute("passwordIsEmpty", passwordIsEmpty);
             }
+            request.setAttribute("passwordEntered", password);
             if (passwordConfirmation.isEmpty()) {
                 passwordConfirmationIsEmpty = "Please confirm your password";
                 request.setAttribute("passwordConfirmationIsEmpty", passwordConfirmationIsEmpty);
