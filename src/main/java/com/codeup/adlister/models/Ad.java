@@ -5,18 +5,36 @@ public class Ad {
     private long userId;
     private String title;
     private String description;
+    private int catId;
 
     public Ad(long id, long userId, String title, String description) {
         this.id = id;
         this.userId = userId;
         this.title = title;
         this.description = description;
+        this.catId = catId;
     }
 
     public Ad(long userId, String title, String description) {
         this.userId = userId;
         this.title = title;
         this.description = description;
+        this.catId = catId;
+    }
+
+    public Ad(long userId, String title, String description, int catId) {
+        this.userId = userId;
+        this.title = title;
+        this.description = description;
+        this.catId = catId;
+    }
+
+    public int getCatId() {
+        return catId;
+    }
+
+    public void setCatId(int catId) {
+        this.catId = catId;
     }
 
     public long getId() {
@@ -50,4 +68,6 @@ public class Ad {
     public void setDescription(String description) {
         this.description = description;
     }
+
+
 }
