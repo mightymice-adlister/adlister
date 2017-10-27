@@ -1,14 +1,20 @@
+html {
+    font-family: Roboto, GillSans, Calibri, Trebuchet, sans-serif;
+}
 body {
     display: flex;
     min-height: 100vh;
     flex-direction: column;
+    justify-content: space-between;
 }
 
 main {
     flex: 1 0 auto;
 }
 
-.codeup-logo {
-    height: 30px;
-    width: 30px;
+.user-text {
+    margin-left: 1rem;
+    letter-spacing: 0.1rem;
+
+
 }
