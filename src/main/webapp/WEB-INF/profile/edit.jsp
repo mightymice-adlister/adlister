@@ -15,6 +15,7 @@
             <input id="email" name="email" class="form-control" value="${user.email}">
             <input type="submit" class="btn btn-primary" value="Edit">
             <a href="/profile" class="btn btn-primary">Cancel</a>
+            <a class="waves-effect waves-light btn" href="/profile/password_change">Change password</a>
         </div>
     </form>
 </div>

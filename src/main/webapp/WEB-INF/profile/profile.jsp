@@ -11,12 +11,37 @@
     <jsp:include page="/WEB-INF/partials/navbar.jsp" />
 
     <div class="container">
-        <h1>Welcome, <c:out value="${user.username}"/>!</h1>
-        <h3>Current email is <c:out value = "${user.email}"/></h3>
+        <div class="row">
+            <div class="col s12">
+                <h1>Welcome, <c:out value="${user.username}"/>!</h1>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col s12 m7 l7">
+                <img src="https://source.unsplash.com/collection/159213/300x300?sig=">
+            </div>
+                <div class="col s12 m5 l5">
+                    <div class="card">
+                        <div class="card-content">
+                            <span class="card-title center-align">Contact info</span>
+                            <p>Name: Example</p>
+                            <br>
+                            <p>Email: <c:out value = "${user.email}"/></p>
+                            <br>
+                            <p>Phone Number: (999) 999-9999</p>
+                            <br>
+                        </div>
+                        <div class="card-action">
+                            <a class="button" href="/profile/edit">Edit profile</a>
+                            <a class="left-align" href="/profile/ads">View ads</a>
+
+                        </div>
+                    </div>
+                </div>
+        </div>
+
         <p><c:out value = "${passChange}"/></p>
-        <a class="button" href="/profile/edit">Edit profile</a>
-        <a class="button" href="/profile/ads">View ads</a>
-        <a class="button" href="/profile/password_change">Change password</a>
+
     </div>
 
     <jsp:include page="/WEB-INF/partials/footer.jsp" />
