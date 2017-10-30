@@ -13,6 +13,10 @@ import java.io.IOException;
 @WebServlet(name = "controllers.RegisterServlet", urlPatterns = "/register")
 public class RegisterServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        if(request.getSession().getAttribute("user") != null ){
+            response.sendRedirect("/profile");
+            return;
+        }
         request.getRequestDispatcher("/WEB-INF/register.jsp").forward(request, response);
     }
 
@@ -27,7 +31,7 @@ public class RegisterServlet extends HttpServlet {
         String passwordIsEmpty;
         String passwordConfirmationIsEmpty;
 
-        System.out.println("Here's the uername: " + username);
+        System.out.println("Here's the username: " + username);
         // validate input
         boolean inputHasErrors = username.isEmpty()
             || email.isEmpty()
@@ -38,14 +42,17 @@ public class RegisterServlet extends HttpServlet {
                 usernameIsEmpty = "Please enter a valid username";
                 request.setAttribute("usernameIsEmpty", usernameIsEmpty);
             }
+            request.setAttribute("usernameEntered", username);
             if (email.isEmpty()) {
                 emailIsEmpty = "Please enter a valid email";
                 request.setAttribute("emailIsEmpty", emailIsEmpty);
             }
+            request.setAttribute("emailEntered", email);
             if (password.isEmpty()) {
                 passwordIsEmpty = "Please enter a valid password";
                 request.setAttribute("passwordIsEmpty", passwordIsEmpty);
             }
+            request.setAttribute("passwordEntered", password);
             if (passwordConfirmation.isEmpty()) {
                 passwordConfirmationIsEmpty = "Please confirm your password";
                 request.setAttribute("passwordConfirmationIsEmpty", passwordConfirmationIsEmpty);

@@ -59,6 +59,10 @@ public class PasswordChangeServlet extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        if (request.getSession().getAttribute("user") == null) {
+            response.sendRedirect("/login");
+            return;
+        }
         User user = (User) request.getSession().getAttribute("user");
         User currentUser = DaoFactory.getUsersDao().findByUsername(user.getUsername());
         request.setAttribute("user", currentUser);

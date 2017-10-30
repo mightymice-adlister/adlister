@@ -48,6 +48,7 @@ public class CreateAdServlet extends HttpServlet {
                 titleIsEmpty = "Please enter a title";
                 request.setAttribute("titleIsEmpty", titleIsEmpty);
             }
+            request.setAttribute("titleEntered", title);
 
             if (description.isEmpty()) {
                 descriptionIsEmpty = "Please enter a description";
@@ -57,6 +58,7 @@ public class CreateAdServlet extends HttpServlet {
                 catIdIsEmpty = "Please select a category";
                 request.setAttribute("catIdIsEmpty", catIdIsEmpty);
             }
+            request.setAttribute("descriptionEntered", description);
             request.getRequestDispatcher("/WEB-INF/ads/create.jsp").forward(request, response);
         } else {
             Long catId = Long.parseLong(categoryId);
