@@ -30,7 +30,11 @@
                             <br>
                             <p>Email: <c:out value = "${user.email}"/></p>
                             <br>
-                            <p>Phone Number: (999) 999-9999</p>
+                            <p>Daytime Phone Number: <c:out value="${user.day_number}"/></p>
+                            <br>
+                            <p>Evening Phone Number: <c:out value="${user.evening_number}"/></p>
+                            <br>
+                            <p>About me: <c:out value="${user.bio}"/></p>
                             <br>
                         </div>
                         <div class="card-action">

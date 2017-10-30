@@ -32,7 +32,7 @@
         </div>
         <div class="form-group">
             <label for="bio">About me</label>
-            <textarea id="bio" name="bio"  class="form-control" value="<c:out value="${user.email}" />"></textarea>
+            <textarea id="bio" name="bio"  class="form-control"><c:out value="${user.bio}" /></textarea>
         </div>
         <br>
         <div class="bottomNav">
