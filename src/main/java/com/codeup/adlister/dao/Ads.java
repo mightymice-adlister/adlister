@@ -13,4 +13,5 @@ public interface Ads {
     List<Ad> searchAll(String terms);
     List<Ad> viewAdsByUser(Long userId);
     String getCatNameById(Long catId);
+    List<String> getCatNamesArray(List<Long> adIds);
 }
