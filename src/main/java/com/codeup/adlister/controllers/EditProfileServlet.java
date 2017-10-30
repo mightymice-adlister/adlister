@@ -14,13 +14,22 @@ import java.io.IOException;
 public class EditProfileServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String email = request.getParameter("email");
-        boolean emailIsEmpty = email.isEmpty();
+        String firstName = request.getParameter("first_name");
+        String lastName = request.getParameter("last_name");
+        String dayNumber = request.getParameter("day_number");
+        String eveningNumber = request.getParameter("evening_number");
+        String bio = request.getParameter("bio");
         User user = (User) request.getSession().getAttribute("user");
 
-        if (emailIsEmpty || email.equals(user.getEmail())) {
+        boolean emailIsEmpty = email.isEmpty();
+
+
+        if (emailIsEmpty ) {
             response.sendRedirect("/profile/edit");
         } else {
-            DaoFactory.getUsersDao().updateEmail(user, email);
+            DaoFactory.getUsersDao().updateProfile(
+                    user, email, firstName, lastName, dayNumber, eveningNumber, bio
+            );
             request.getSession().setAttribute("user", DaoFactory.getUsersDao().findByUsername(user.getUsername()));
             response.sendRedirect("/profile");
         }

@@ -24,7 +24,9 @@
                     <div class="card">
                         <div class="card-content">
                             <span class="card-title center-align">Contact info</span>
-                            <p>Name: Example</p>
+                            <p>First Name: <c:out value="${user.first_name}"/> </p>
+                            <br>
+                            <p>Last Name: <c:out value="${user.last_name}"/> </p>
                             <br>
                             <p>Email: <c:out value = "${user.email}"/></p>
                             <br>

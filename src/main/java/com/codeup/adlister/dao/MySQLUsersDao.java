@@ -60,20 +60,30 @@ public class MySQLUsersDao implements Users {
             rs.getLong("id"),
             rs.getString("username"),
             rs.getString("email"),
-            rs.getString("password")
+            rs.getString("password"),
+            rs.getString("first_name"),
+            rs.getString("last_name"),
+            rs.getString("day_number"),
+            rs.getString("evening_number"),
+            rs.getString("bio")
         );
     }
 
     @Override
-    public void updateEmail(User user, String newEmail){
-        String query = "UPDATE users SET email = ? WHERE id = ?";
+    public void updateProfile(User user, String newEmail, String firstName, String lastName, String dayNumber, String eveningNumber, String bio){
+        String query = "UPDATE users SET email = ?, first_name = ?, last_name = ?, day_number = ?, evening_number = ?, bio = ? WHERE id = ?";
         try {
             PreparedStatement stmt = connection.prepareStatement(query);
             stmt.setString(1, newEmail);
-            stmt.setLong(2, user.getId());
+            stmt.setString(2, firstName);
+            stmt.setString(3, lastName);
+            stmt.setString(4, dayNumber);
+            stmt.setString(5, eveningNumber);
+            stmt.setString(6, bio);
+            stmt.setLong(7, user.getId());
             stmt.executeUpdate();
         } catch (SQLException e) {
-            throw new RuntimeException("Unable to update email address", e);
+            throw new RuntimeException("Unable to update profile", e);
         }
 
     }
