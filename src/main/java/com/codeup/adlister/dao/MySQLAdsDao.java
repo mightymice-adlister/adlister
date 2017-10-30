@@ -2,6 +2,7 @@ package com.codeup.adlister.dao;
 
 import com.codeup.adlister.models.Ad;
 import com.mysql.cj.jdbc.Driver;
+import org.omg.SendingContext.RunTime;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -55,11 +56,12 @@ public class MySQLAdsDao implements Ads {
     @Override
     public Long insert(Ad ad) {
         try {
-            String insertQuery = "INSERT INTO ads(user_id, title, description) VALUES (?, ?, ?)";
+            String insertQuery = "INSERT INTO ads(user_id, title, description, cat_id) VALUES (?, ?, ?, ?)";
             PreparedStatement stmt = connection.prepareStatement(insertQuery, Statement.RETURN_GENERATED_KEYS);
             stmt.setLong(1, ad.getUserId());
             stmt.setString(2, ad.getTitle());
             stmt.setString(3, ad.getDescription());
+            stmt.setLong(4, ad.getCatId());
             stmt.executeUpdate();
             ResultSet rs = stmt.getGeneratedKeys();
             rs.next();
@@ -74,7 +76,8 @@ public class MySQLAdsDao implements Ads {
             rs.getLong("id"),
             rs.getLong("user_id"),
             rs.getString("title"),
-            rs.getString("description")
+            rs.getString("description"),
+                rs.getLong("cat_id")
         );
     }
 
@@ -89,7 +92,10 @@ public class MySQLAdsDao implements Ads {
 
     @Override
     public List<Ad> searchAll(String terms) {
-        Ad noResultsProtected = new Ad(noResults.getId(), noResults.getTitle(), noResults.getDescription());
+        Ad noResultsProtected = new Ad(
+                noResults.getId(),
+                noResults.getTitle(),
+                noResults.getDescription());
         PreparedStatement stmt;
         String termsWildCard = "%"+terms+"%";
         String query = "SELECT * FROM ads WHERE description LIKE ? OR title LIKE ?";
@@ -101,7 +107,12 @@ public class MySQLAdsDao implements Ads {
             stmt.setString(2, termsWildCard);
             ResultSet rs = stmt.executeQuery();
             while(rs.next()){
-                ads.add(new Ad(rs.getLong("id"), rs.getLong("user_id"), rs.getString("title"), rs.getString("description")));
+                ads.add(new Ad(
+                        rs.getLong("id"),
+                        rs.getLong("user_id"),
+                        rs.getString("title"),
+                        rs.getString("description"),
+                        rs.getLong("cat_id")));
             }
         }catch(SQLException e){
             e.printStackTrace();
@@ -116,7 +127,10 @@ public class MySQLAdsDao implements Ads {
 
     @Override
     public List<Ad> viewAdsByUser(Long userId) {
-        Ad noResultsProtected = new Ad(noResults.getId(), noResults.getTitle(), noResults.getDescription());
+        Ad noResultsProtected = new Ad(
+                noResults.getId(),
+                noResults.getTitle(),
+                noResults.getDescription());
         String query = "SELECT * FROM ads WHERE user_id = ?";
         PreparedStatement stmt;
         List<Ad> adsByUser = new ArrayList<>();
@@ -125,7 +139,11 @@ public class MySQLAdsDao implements Ads {
             stmt.setLong(1, userId);
             ResultSet rs = stmt.executeQuery();
             while(rs.next()){
-                adsByUser.add(new Ad(rs.getLong("id"), rs.getLong("user_id"), rs.getString("title"), rs.getString("description")));
+                adsByUser.add(new Ad(
+                        rs.getLong("id"),
+                        rs.getLong("user_id"),
+                        rs.getString("title"),
+                        rs.getString("description")));
 
             }
         }catch(SQLException e){
@@ -137,5 +155,28 @@ public class MySQLAdsDao implements Ads {
         }
 
         return adsByUser;
+    }
+
+    @Override
+    public String getCatNameById(Long catId) {
+        String sql =
+                "SELECT name " +
+                "FROM categories AS cat " +
+                "JOIN ads " +
+                "ON ads.cat_id = cat.id " +
+                "WHERE cat.id=?";
+        try {
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setLong(1, catId);
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+                return rs.getString("name");
+            } else {
+                return "No category :(";
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException("There was a problem getting the category name by id", e);
+        }
     }
 }

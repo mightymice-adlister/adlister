@@ -18,20 +18,8 @@
         </div>
         <div class="row">
         <c:forEach var="ad" items="${ads}">
-                <div class="col s6 m6 l6">
-                    <div class="card">
-                        <div class="card-image">
-                            <img src="https://source.unsplash.com/collection/190727/350x350?sig=${ad.id}">
-                            <span class="card-title"><c:out value = "${ad.title}"/></span>
-                        </div>
-                        <div class="card-content">
-                            <p>${ad.description}</p>
-                        </div>
-                        <div class="card-action">
-                            <a href="/ads/view?id=<c:out value="${ad.id}" />">View More</a>
-                        </div>
-                    </div>
-                </div>
+            <c:set var="ad" value="${ad}" scope="request"/>
+            <jsp:include page="/WEB-INF/partials/ads-partial-short.jsp" />
         </c:forEach>
         </div>
     </div>

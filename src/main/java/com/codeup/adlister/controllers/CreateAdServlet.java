@@ -23,21 +23,26 @@ public class CreateAdServlet extends HttpServlet {
             .forward(request, response);
     }
 
-
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         User user = (User) request.getSession().getAttribute("user");
         String title = request.getParameter("title");
         String description = request.getParameter("description");
+        String categoryId = request.getParameter("catId");
+
         String titleIsEmpty;
         String descriptionIsEmpty;
-        System.out.println("Title: " + title);
+        String catIdIsEmpty;
+
+
         if (user == null) {
             response.sendRedirect("/login");
             return;
         }
+
         // validate input
-        boolean inputHasErrors = title.isEmpty()
-                || description.isEmpty();
+        boolean inputHasErrors =
+                title.isEmpty() || description.isEmpty() || categoryId.isEmpty();
+
         if (inputHasErrors) {
             if (title.isEmpty()) {
                 titleIsEmpty = "Please enter a title";
@@ -49,14 +54,21 @@ public class CreateAdServlet extends HttpServlet {
                 descriptionIsEmpty = "Please enter a description";
                 request.setAttribute("descriptionIsEmpty", descriptionIsEmpty);
             }
+            if (categoryId == null) {
+                catIdIsEmpty = "Please select a category";
+                request.setAttribute("catIdIsEmpty", catIdIsEmpty);
+            }
             request.setAttribute("descriptionEntered", description);
             request.getRequestDispatcher("/WEB-INF/ads/create.jsp").forward(request, response);
         } else {
+            Long catId = Long.parseLong(categoryId);
             Ad ad = new Ad(
                     user.getId(),
                     title,
-                    description
+                    description,
+                    catId
             );
+
             DaoFactory.getAdsDao().insert(ad);
             response.sendRedirect("/ads");
         }
