@@ -34,5 +34,10 @@ CREATE TABLE ads (
 );
 
 
-
+use adlister_db;
+SELECT *
+FROM ads
+JOIN categories AS cat
+ON ads.cat_id = cat.id
+WHERE ads.id=?;
 

@@ -26,6 +26,7 @@
             <tr>
                 <th>Ad Title</th>
                 <th>Description</th>
+                <th>Category</th>
             </tr>
             </thead>
 
@@ -39,11 +40,12 @@
                         <%--// Make a table to display the ad links--%>
                         <tr>
                             <td>
-                                <a href="/ads/view?id=<c:out value="${ad.id}"/>">
-                                    <c:out value = "${ad.title}"/>
+                                <a href="/ads/view?id=<c:out value="${ad.id}" />">
+                                    <c:out value="${ad.title}"/>
                                 </a>
                             </td>
-                            <td><c:out value = "${ad.description}"/></td>
+                            <td><c:out value="${ad.description}" /></td>
+                            <td><c:out value="${ad.catName}" /></td>
                         </tr>
                     </c:otherwise>
                 </c:choose>

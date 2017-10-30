@@ -17,6 +17,17 @@
                 <p><c:out value="${titleIsEmpty}" /></p>
             </div>
             <div class="form-group">
+                <div class="input-field col s12 m6">
+                    <select class="icons" name="catId">
+                        <option disabled selected>Category</option>
+                        <option value="1" data-icon="https://source.unsplash.com/collection/632477/" class="circle">Beauty</option>
+                        <option value="2" data-icon="https://source.unsplash.com/collection/190727/" class="circle">Jobs</option>
+                        <option value="3" data-icon="https://source.unsplash.com/collection/353844/" class="circle">Electronics</option>
+                    </select>
+                </div>
+                <p><c:out value="${catIdIsEmpty}" /></p>
+            </div>
+            <div class="form-group">
                 <label for="description">Description</label>
                 <textarea id="description" name="description" class="form-control" type="text"></textarea>
                 <p><c:out value="${descriptionIsEmpty}" /></p>
