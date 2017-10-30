@@ -10,7 +10,7 @@
         </div>
         <div class="card-content">
 
-            <p class="truncate">${ad.description}</p>
+            <p class="truncate"><c:out value="${ad.description}"/></p>
         </div>
         <div class="card-action">
             <a href="/ads/view?id=<c:out value="${ad.id}" />">View More</a>
