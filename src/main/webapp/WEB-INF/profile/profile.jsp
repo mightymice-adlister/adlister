@@ -24,11 +24,17 @@
                     <div class="card">
                         <div class="card-content">
                             <span class="card-title center-align">Contact info</span>
-                            <p>Name: Example</p>
+                            <p>First Name: <c:out value="${user.first_name}"/> </p>
+                            <br>
+                            <p>Last Name: <c:out value="${user.last_name}"/> </p>
                             <br>
                             <p>Email: <c:out value = "${user.email}"/></p>
                             <br>
-                            <p>Phone Number: (999) 999-9999</p>
+                            <p>Daytime Phone Number: <c:out value="${user.day_number}"/></p>
+                            <br>
+                            <p>Evening Phone Number: <c:out value="${user.evening_number}"/></p>
+                            <br>
+                            <p>About me: <c:out value="${user.bio}"/></p>
                             <br>
                         </div>
                         <div class="card-action">
