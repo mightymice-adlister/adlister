@@ -1,22 +1,61 @@
 package com.codeup.adlister.models;
 
+import com.codeup.adlister.dao.DaoFactory;
+
 public class Ad {
     private long id;
     private long userId;
     private String title;
     private String description;
+    private Long catId;
+    private String catName;
 
     public Ad(long id, long userId, String title, String description) {
         this.id = id;
         this.userId = userId;
         this.title = title;
         this.description = description;
+
     }
 
     public Ad(long userId, String title, String description) {
         this.userId = userId;
         this.title = title;
         this.description = description;
+
+    }
+
+    public Ad(long id, long userId, String title, String description, Long catId) {
+        this.id = id;
+        this.userId = userId;
+        this.title = title;
+        this.description = description;
+        this.catId = catId;
+        this.catName = DaoFactory.getAdsDao().getCatNameById(catId);
+    }
+
+    public Ad(long userId, String title, String description, Long catId) {
+        this.userId = userId;
+        this.title = title;
+        this.description = description;
+        this.catId = catId;
+        this.catName = DaoFactory.getAdsDao().getCatNameById(catId);
+    }
+
+    public String getCatName() {
+        return catName;
+    }
+
+    public void setCatName(String catName) {
+        this.catName = catName;
+    }
+
+    public Long getCatId() {
+        return catId;
+    }
+
+    public void setCatId(Long catId) {
+        this.catId = catId;
     }
 
     public long getId() {
@@ -27,7 +66,7 @@ public class Ad {
         this.id = id;
     }
 
-    public long getUserId() {
+    public Long getUserId() {
         return userId;
     }
 
@@ -50,4 +89,6 @@ public class Ad {
     public void setDescription(String description) {
         this.description = description;
     }
+
+
 }
