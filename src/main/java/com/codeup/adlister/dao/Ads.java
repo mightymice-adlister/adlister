@@ -10,6 +10,7 @@ public interface Ads {
     // insert a new ad and return the new ad's id
     Long insert(Ad ad);
     Long delete(Long adId);
+    Long edit(Long adId, String title, String description, Long catId);
     Ad viewOneAd(Long id);
     List<Ad> searchAll(String terms);
     List<Ad> viewAdsByUser(Long userId);
