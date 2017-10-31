@@ -24,18 +24,28 @@
                     <div class="card">
                         <div class="card-content">
                             <span class="card-title center-align">Contact info</span>
-                            <p>First Name: <c:out value="${user.first_name}"/> </p>
-                            <br>
-                            <p>Last Name: <c:out value="${user.last_name}"/> </p>
-                            <br>
-                            <p>Email: <c:out value = "${user.email}"/></p>
-                            <br>
-                            <p>Daytime Phone Number: <c:out value="${user.day_number}"/></p>
-                            <br>
-                            <p>Evening Phone Number: <c:out value="${user.evening_number}"/></p>
-                            <br>
-                            <p>About me: <c:out value="${user.bio}"/></p>
-                            <br>
+                            <c:if test="${user.first_name != null && user.first_name !=''}">
+                                <p><strong>First Name</strong>: <c:out value="${user.first_name}"/> </p>
+                                <br>
+                            </c:if>
+                            <c:if test="${user.last_name != null && user.last_name !=''}">
+                                <p><strong>Last Name:</strong> <c:out value="${user.last_name}"/> </p>
+                                <br>
+                            </c:if>
+                                <p><strong>Email:</strong> <c:out value = "${user.email}"/></p>
+                                <br>
+                            <c:if test="${user.day_number != null && user.day_number != ''}">
+                                <p><strong>Daytime Phone Number:</strong> <c:out value="${user.day_number}"/></p>
+                                <br>
+                            </c:if>
+                            <c:if test="${user.evening_number != null && user.evening_number !=''}">
+                                <p><strong>Evening Phone Number:</strong> <c:out value="${user.evening_number}"/></p>
+                                <br>
+                            </c:if>
+                            <c:if test="${user.bio != null && user.bio !=''}">
+                                <p><strong>About me:</strong> <c:out value="${user.bio}"/></p>
+                                <br>
+                            </c:if>
                         </div>
                         <div class="card-action">
                             <a class="button" href="/profile/edit">Edit profile</a>
