@@ -8,6 +8,7 @@
 </head>
 <body>
 <jsp:include page="../partials/navbar.jsp" />
+<%%>
     <div class="container">
         <h1>Create a new Ad</h1>
         <form action="/ads/create" method="post">
@@ -17,14 +18,17 @@
                 <p><c:out value="${titleIsEmpty}" /></p>
             </div>
             <div class="form-group">
-                <div class="input-field col s12 m6">
-                    <select class="icons" name="catId">
-                        <option disabled selected>Category</option>
-                        <option value="1" data-icon="https://source.unsplash.com/collection/632477/" class="circle">Beauty</option>
-                        <option value="2" data-icon="https://source.unsplash.com/collection/190727/" class="circle">Jobs</option>
-                        <option value="3" data-icon="https://source.unsplash.com/collection/353844/" class="circle">Electronics</option>
+                <div class="input-field col s12">
+                    <select name="catIds" multiple>
+                        <option value="" disabled selected>Choose your option</option>
+                        <c:forEach var="category" items="${categories}">
+                            <option name="catIds" value="<c:out value="${category.id}"/>">${category.name}</option>
+                        </c:forEach>
                     </select>
+                    <label>Select Your Category/Categories</label>
                 </div>
+
+
                 <p><c:out value="${catIdIsEmpty}" /></p>
             </div>
             <div class="form-group">
@@ -34,6 +38,7 @@
             </div>
             <input type="submit" class="btn btn-block btn-primary">
         </form>
+
     </div>
 
     <jsp:include page="/WEB-INF/partials/footer.jsp" />

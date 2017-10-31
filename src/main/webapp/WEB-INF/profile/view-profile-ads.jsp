@@ -1,3 +1,4 @@
+<%@ page import="com.codeup.adlister.models.Ad" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
@@ -12,8 +13,16 @@
 <div class="container">
     <h1>Here are all the ads from <c:out value="${user.username}"/></h1>
     <c:forEach var="ad" items="${ads}">
+<c:choose>
+    <c:when test="${ad.id !=0}">
         <c:set var="ad" value="${ad}" scope="request"/>
         <jsp:include page="/WEB-INF/partials/ads-partial-short.jsp" />
+    </c:when>
+
+    <c:otherwise>
+            <h3><c:out value="${user.username}"/> has no active ads.</h3>
+    </c:otherwise>
+</c:choose>
     </c:forEach>
 </div>
 

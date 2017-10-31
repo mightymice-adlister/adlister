@@ -35,8 +35,16 @@ public class Ad {
 //        this.catId = catId;
 //        this.catName = DaoFactory.getAdsDao().getCatNameById(catId);
 //    }
+public Ad( Long userId, String title, String description, List<Long> catId) {
+    this.userId = userId;
+    this.title = title;
+    this.description = description;
+    this.catId = catId;
+    this.catName = DaoFactory.getAdsDao().getCatNamesArray(catId);
+}
 
-    public Ad(long userId, String title, String description, List<Long> catId) {
+    public Ad(Long id, Long userId, String title, String description, List<Long> catId) {
+        this.id = id;
         this.userId = userId;
         this.title = title;
         this.description = description;

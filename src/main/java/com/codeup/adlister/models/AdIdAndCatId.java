@@ -11,4 +11,19 @@ public class AdIdAndCatId {
         this.catIds = catIds;
     }
 
+    public Long getAdId() {
+        return adId;
+    }
+
+    public List<Long> getCatIds() {
+        return catIds;
+    }
+
+    public void setAdId(Long adId) {
+        this.adId = adId;
+    }
+
+    public void setCatIds(List<Long> catIds) {
+        this.catIds = catIds;
+    }
 }
