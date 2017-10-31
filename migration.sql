@@ -23,7 +23,7 @@ CREATE TABLE users (
 
 CREATE TABLE categories (
     id INT UNSIGNED NOT NULL AUTO_INCREMENT,
-    name VARCHAR(50),
+    name VARCHAR(50) UNIQUE,
     PRIMARY KEY(id)
 );
 
