@@ -26,5 +26,17 @@ public class ViewUserAdsServlet extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 
+        Long deleteId = Long.parseLong(request.getParameter("deleteId"));
+
+        System.out.println("Delete Id has been passed: " + deleteId);
+
+        if(deleteId != null) {
+            DaoFactory.getAdsDao().delete(deleteId);
+        } else {
+            System.out.println("deleteId is pointing to a null value! Oh lawdy!");
+        }
+        response.sendRedirect("/profile/ads");
+
+
     }
 }

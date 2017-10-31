@@ -2,7 +2,7 @@
 <header>
     <c:choose>
         <c:when test="${sessionScope.user.username == null}">
-            <%--If user is not logged in--%>
+            <%--If user is not logged out--%>
         <nav>
             <div class="nav-wrapper teal lighten-2">
                 <div class="col s3 offset-s2">
