@@ -12,12 +12,7 @@
                         name="deleteId"
                         value="${ad.id}">Delete</button>
             </form>
-            <form method="post" action="/ads/edit">
-                <button type="submit"
-                        name="editId"
-                        value="${ad.id}"
-                        class="waves-effect waves-light btn">Edit</button>
-            </form>
+                <a href="/ads/edit?id=${ad.id}" class="waves-effect waves-light btn">Edit</a>
         </c:if>
     </div>
     <div class="col s6">
