@@ -73,18 +73,17 @@ public class MySQLAdsDao implements Ads {
         }
     }
     @Override
-    public Long edit(Long adId, String title, String description, Long catId) {
+    public Long edit(Long adId, String title, String description) {
         PreparedStatement stmt;
         String sql = "" +
                 "UPDATE ads " +
-                "SET title = ?, description = ?, cat_id = ? " +
+                "SET title = ?, description = ? " +
                 "WHERE id = ?";
         try {
             stmt = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             stmt.setString(1, title);
             stmt.setString(2, description);
-            stmt.setLong(3, catId);
-            stmt.setLong(4, adId);
+            stmt.setLong(3, adId);
             stmt.executeUpdate();
             ResultSet rs = stmt.getGeneratedKeys();
             if(rs.next()) {
@@ -158,7 +157,8 @@ public class MySQLAdsDao implements Ads {
                         rs.getLong("id"),
                         rs.getLong("user_id"),
                         rs.getString("title"),
-                        rs.getString("description")
+                        rs.getString("description"),
+                        DaoFactory.getAdAndCatsDao().getCategoriesByAdId(rs.getLong("id")).getCatIds()
 //                        rs.getLong("cat_id")))
                 ));
             }

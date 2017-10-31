@@ -10,14 +10,16 @@
 <jsp:include page="../partials/navbar.jsp" />
 <%%>
     <div class="container">
+
         <h1>Create a new Ad</h1>
+
         <form action="/ads/create" method="post">
-            <div class="form-group">
                 <label for="title">Title</label>
-                <input id="title" name="title" class="form-control" value="<c:out value="${titleEntered}"/>" type="text">
+                <input id="title"
+                       name="title"
+                       value="<c:out value="${titleEntered}"/>" type="text">
                 <p><c:out value="${titleIsEmpty}" /></p>
-            </div>
-            <div class="form-group">
+
                 <div class="input-field col s12">
                     <select name="catIds" multiple>
                         <option value="" disabled selected>Choose your option</option>
@@ -30,7 +32,7 @@
 
 
                 <p><c:out value="${catIdIsEmpty}" /></p>
-            </div>
+
             <div class="form-group">
                 <label for="description">Description</label>
                 <textarea id="description" name="description" class="form-control" type="text"><c:out value="${descriptionEntered}"/></textarea>

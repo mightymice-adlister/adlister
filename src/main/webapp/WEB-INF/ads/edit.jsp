@@ -22,21 +22,30 @@
             <p><c:out value="${titleIsEmpty}" /></p>
 
             <div class="input-field col s12 m6">
-                <select class="icons" name="catId">
+                <select class="icons" name="catIds" multiple>
 
                     <option disabled selected>Category</option>
 
-                    <option <c:if test="${ad.catId == 1}">selected </c:if>
-                            value="1"
-                            data-icon="https://source.unsplash.com/collection/632477/" class="circle">Beauty</option>
+                    <c:forEach var="category" items="${categories}">
+                        <option
+                                <%--check if previously selected--%>
+                                <c:forEach var="catFromAd" items="${catsFromAd}">
+                                    <c:if test="${category.id == catFromAd}">selected </c:if>
+                                </c:forEach>
+                                value="<c:out value="${category.id}"/>">${category.name}
+                        </option>
+                    </c:forEach>
+                    <%--<option <c:if test="${ad.catId == 1}">selected </c:if>--%>
+                            <%--value="1"--%>
+                            <%--data-icon="https://source.unsplash.com/collection/632477/" class="circle">Beauty</option>--%>
 
-                    <option <c:if test="${ad.catId == 2}">selected </c:if>
-                            value="2"
-                            data-icon="https://source.unsplash.com/collection/190727/" class="circle">Jobs</option>
+                    <%--<option <c:if test="${ad.catId == 2}">selected </c:if>--%>
+                            <%--value="2"--%>
+                            <%--data-icon="https://source.unsplash.com/collection/190727/" class="circle">Jobs</option>--%>
 
-                    <option <c:if test="${ad.catId == 3}">selected </c:if>
-                            value="3"
-                            data-icon="https://source.unsplash.com/collection/353844/" class="circle">Electronics</option>
+                    <%--<option <c:if test="${ad.catId == 3}">selected </c:if>--%>
+                            <%--value="3"--%>
+                            <%--data-icon="https://source.unsplash.com/collection/353844/" class="circle">Electronics</option>--%>
 
                 </select>
             <p><c:out value="${catIdIsEmpty}" /></p>
