@@ -45,7 +45,12 @@
                                 </a>
                             </td>
                             <td><c:out value="${ad.description}" /></td>
-                            <td><c:out value="${ad.catName}" /></td>
+                            <td>
+                                <c:forEach var="catName" items="${ad.catName}">
+                                    <c:out value="${catName}" />
+                                </c:forEach>
+
+                            </td>
                         </tr>
                     </c:otherwise>
                 </c:choose>

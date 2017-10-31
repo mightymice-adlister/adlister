@@ -22,6 +22,31 @@ public class MySQLAdAndCatsDao implements AdAndCats {
         }
     }
 
+    @Override
+    public void editCat(AdIdAndCatId aici) {
+        delete(aici.getAdId());
+        insert(aici);
+    }
+
+
+    private Long delete(Long adId) {
+        PreparedStatement stmt;
+        String sql = "DELETE FROM ads_categories WHERE ads_id=?";
+        try{
+            stmt = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            stmt.setLong(1, adId);
+            stmt.executeUpdate();
+            ResultSet rs = stmt.getGeneratedKeys();
+            if(rs.next()){
+                return rs.getLong(1);
+            } else {
+                return 0l;
+            }
+
+        }catch(SQLException e) {
+            throw new RuntimeException("Problem deleting ads/categories", e);
+        }
+    }
 
     @Override
     public void insert(AdIdAndCatId AandC){

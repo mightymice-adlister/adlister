@@ -8,10 +8,11 @@
         <c:if test="${sessionScope.user.id == ad.userId}">
             <form method="post" action="/profile/ads">
                 <button type="submit"
-                        class="waves-effect waves-light btn"
+                        class="waves-effect waves-light red lighten-1 btn"
                         name="deleteId"
                         value="${ad.id}">Delete</button>
             </form>
+                <a href="/ads/edit?id=${ad.id}" class="waves-effect waves-light btn">Edit</a>
         </c:if>
     </div>
     <div class="col s6">
