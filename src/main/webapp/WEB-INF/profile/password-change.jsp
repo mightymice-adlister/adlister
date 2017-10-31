@@ -9,8 +9,8 @@
 <body>
 <jsp:include page="/WEB-INF/partials/navbar.jsp" />
 <div class="container">
-    <p><c:out value="${incompleteForm}"/></p>
-    <p><c:out value="${invalidInput}"/></p>
+    <p class="invalid"><c:out value="${incompleteForm}"/></p>
+    <p class="invalid"><c:out value="${invalidInput}"/></p>
         <form action="/profile/password_change" method="post">
             <div class="form-group">
                 <label for="password">Current Password</label>
