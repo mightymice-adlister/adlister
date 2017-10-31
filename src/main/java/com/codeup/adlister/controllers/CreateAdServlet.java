@@ -2,7 +2,9 @@ package com.codeup.adlister.controllers;
 
 import com.codeup.adlister.dao.DaoFactory;
 import com.codeup.adlister.models.Ad;
+import com.codeup.adlister.models.AdIdAndCatId;
 import com.codeup.adlister.models.User;
+import java.util.List;
 
 import javax.servlet.Servlet;
 import javax.servlet.ServletException;
@@ -11,6 +13,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.ArrayList;
 
 @WebServlet(name = "controllers.CreateAdServlet", urlPatterns = "/ads/create")
 public class CreateAdServlet extends HttpServlet {
@@ -19,19 +22,23 @@ public class CreateAdServlet extends HttpServlet {
             response.sendRedirect("/login");
             return;
         }
+        request.setAttribute("categories", DaoFactory.getCategoriesDao().All());
         request.getRequestDispatcher("/WEB-INF/ads/create.jsp")
             .forward(request, response);
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         User user = (User) request.getSession().getAttribute("user");
+
         String title = request.getParameter("title");
         String description = request.getParameter("description");
-        String categoryId = request.getParameter("catId");
+
+
 
         String titleIsEmpty;
         String descriptionIsEmpty;
         String catIdIsEmpty;
+
 
 
         if (user == null) {
@@ -41,7 +48,7 @@ public class CreateAdServlet extends HttpServlet {
 
         // validate input
         boolean inputHasErrors =
-                title.isEmpty() || description.isEmpty() || categoryId.isEmpty();
+                title.isEmpty() || description.isEmpty() || request.getParameterValues("catIds") == null;
 
         if (inputHasErrors) {
             if (title.isEmpty()) {
@@ -54,22 +61,28 @@ public class CreateAdServlet extends HttpServlet {
                 descriptionIsEmpty = "Please enter a description";
                 request.setAttribute("descriptionIsEmpty", descriptionIsEmpty);
             }
-            if (categoryId == null) {
+            if (request.getParameterValues("catIds") == null) {
                 catIdIsEmpty = "Please select a category";
                 request.setAttribute("catIdIsEmpty", catIdIsEmpty);
             }
             request.setAttribute("descriptionEntered", description);
+            request.setAttribute("categories", DaoFactory.getCategoriesDao().All());
             request.getRequestDispatcher("/WEB-INF/ads/create.jsp").forward(request, response);
         } else {
-            Long catId = Long.parseLong(categoryId);
+            String [] categoryId = request.getParameterValues("catIds");
+            List<Long> catIds = new ArrayList<>();
+            for(String catId: categoryId){
+                catIds.add(Long.parseLong(catId));
+            }
             Ad ad = new Ad(
                     user.getId(),
                     title,
                     description,
-                    catId
+                    catIds
             );
 
-            DaoFactory.getAdsDao().insert(ad);
+            Long adId = DaoFactory.getAdsDao().insert(ad);
+            DaoFactory.getAdAndCatsDao().insert(new AdIdAndCatId(adId, ad.getCatId()));
             response.sendRedirect("/ads");
         }
 

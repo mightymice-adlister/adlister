@@ -4,6 +4,8 @@ public class DaoFactory {
     private static Ads adsDao;
     private static Users usersDao;
     private static Config config = new Config();
+    private static Categories categoriesDao;
+    private static AdAndCats adAndCatsDao;
 
     public static Ads getAdsDao() {
         if (adsDao == null) {
@@ -17,5 +19,17 @@ public class DaoFactory {
             usersDao = new MySQLUsersDao(config);
         }
         return usersDao;
+    }
+    public static Categories getCategoriesDao(){
+        if(categoriesDao == null) {
+            categoriesDao = new MySQLCategoriesDao(config);
+        }
+        return categoriesDao;
+    }
+    public static AdAndCats getAdAndCatsDao(){
+        if(adAndCatsDao == null){
+            adAndCatsDao = new MySQLAdAndCatsDao(config);
+        }
+        return adAndCatsDao;
     }
 }

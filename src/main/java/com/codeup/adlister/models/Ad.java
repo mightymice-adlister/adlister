@@ -2,13 +2,15 @@ package com.codeup.adlister.models;
 
 import com.codeup.adlister.dao.DaoFactory;
 
+import java.util.List;
+
 public class Ad {
     private long id;
     private long userId;
     private String title;
     private String description;
-    private Long catId;
-    private String catName;
+    private List<Long> catId;
+    private List<String> catName;
 
     public Ad(long id, long userId, String title, String description) {
         this.id = id;
@@ -25,36 +27,44 @@ public class Ad {
 
     }
 
-    public Ad(long id, long userId, String title, String description, Long catId) {
+//    public Ad(long id, long userId, String title, String description) {
+//        this.id = id;
+//        this.userId = userId;
+//        this.title = title;
+//        this.description = description;
+//        this.catId = catId;
+//        this.catName = DaoFactory.getAdsDao().getCatNameById(catId);
+//    }
+public Ad( Long userId, String title, String description, List<Long> catId) {
+    this.userId = userId;
+    this.title = title;
+    this.description = description;
+    this.catId = catId;
+    this.catName = DaoFactory.getAdsDao().getCatNamesArray(catId);
+}
+
+    public Ad(Long id, Long userId, String title, String description, List<Long> catId) {
         this.id = id;
         this.userId = userId;
         this.title = title;
         this.description = description;
         this.catId = catId;
-        this.catName = DaoFactory.getAdsDao().getCatNameById(catId);
+        this.catName = DaoFactory.getAdsDao().getCatNamesArray(catId);
     }
 
-    public Ad(long userId, String title, String description, Long catId) {
-        this.userId = userId;
-        this.title = title;
-        this.description = description;
-        this.catId = catId;
-        this.catName = DaoFactory.getAdsDao().getCatNameById(catId);
-    }
-
-    public String getCatName() {
+    public List<String> getCatName() {
         return catName;
     }
 
-    public void setCatName(String catName) {
+    public void setCatName(List<String> catName) {
         this.catName = catName;
     }
 
-    public Long getCatId() {
+    public List<Long> getCatId() {
         return catId;
     }
 
-    public void setCatId(Long catId) {
+    public void setCatId(List<Long> catId) {
         this.catId = catId;
     }
 

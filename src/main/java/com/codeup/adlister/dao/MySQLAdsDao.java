@@ -76,12 +76,12 @@ public class MySQLAdsDao implements Ads {
     @Override
     public Long insert(Ad ad) {
         try {
-            String insertQuery = "INSERT INTO ads(user_id, title, description, cat_id) VALUES (?, ?, ?, ?)";
+            String insertQuery = "INSERT INTO ads(user_id, title, description) VALUES (?, ?, ?)";
             PreparedStatement stmt = connection.prepareStatement(insertQuery, Statement.RETURN_GENERATED_KEYS);
             stmt.setLong(1, ad.getUserId());
             stmt.setString(2, ad.getTitle());
             stmt.setString(3, ad.getDescription());
-            stmt.setLong(4, ad.getCatId());
+//            stmt.setLong(4, ad.getCatId());
             stmt.executeUpdate();
             ResultSet rs = stmt.getGeneratedKeys();
             rs.next();
@@ -97,7 +97,8 @@ public class MySQLAdsDao implements Ads {
             rs.getLong("user_id"),
             rs.getString("title"),
             rs.getString("description"),
-                rs.getLong("cat_id")
+            DaoFactory.getAdAndCatsDao().getCategoriesByAdId(rs.getLong("id")).getCatIds()
+
         );
     }
 
@@ -131,8 +132,9 @@ public class MySQLAdsDao implements Ads {
                         rs.getLong("id"),
                         rs.getLong("user_id"),
                         rs.getString("title"),
-                        rs.getString("description"),
-                        rs.getLong("cat_id")));
+                        rs.getString("description")
+//                        rs.getLong("cat_id")))
+                ));
             }
         }catch(SQLException e){
             e.printStackTrace();
@@ -178,12 +180,21 @@ public class MySQLAdsDao implements Ads {
     }
 
     @Override
+    public List<String> getCatNamesArray(List<Long> catIds){
+        List<String>catNames = new ArrayList<>();
+        for(Long catId:catIds){
+            catNames.add(getCatNameById(catId));
+        }
+        return catNames;
+
+    }
+
+
+    @Override
     public String getCatNameById(Long catId) {
         String sql =
                 "SELECT name " +
                 "FROM categories AS cat " +
-                "JOIN ads " +
-                "ON ads.cat_id = cat.id " +
                 "WHERE cat.id=?";
         try {
             PreparedStatement ps = connection.prepareStatement(sql);
@@ -197,6 +208,23 @@ public class MySQLAdsDao implements Ads {
             }
         } catch (SQLException e) {
             throw new RuntimeException("There was a problem getting the category name by id", e);
+        }
+    }
+
+    public List<Long> getCatIdsByAdId(Long adId){
+        List<Long> catIds = new ArrayList<>();
+        String sql = "SELECT DISTINCT category_id FROM ads_categories WHERE ads_id = ?";
+        try{
+            PreparedStatement stmt = connection.prepareStatement(sql);
+            stmt.setLong(1, adId);
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()){
+            catIds.add(rs.getLong("category_id"));
+            }
+            return catIds;
+
+        }catch (SQLException e){
+            throw new RuntimeException("Could not get category id's", e);
         }
     }
 }
