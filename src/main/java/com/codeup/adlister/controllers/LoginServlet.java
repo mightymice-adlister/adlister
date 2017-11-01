@@ -41,6 +41,8 @@ public class LoginServlet extends HttpServlet {
                 passwordIsEmpty = "Please enter a valid password";
                 request.setAttribute("passwordIsEmpty", passwordIsEmpty);
             }
+            request.setAttribute("stickyUsername", username);
+
             request.getRequestDispatcher("WEB-INF/login.jsp").forward(request, response);
             return;
         }
@@ -55,7 +57,8 @@ public class LoginServlet extends HttpServlet {
             request.getSession().setAttribute("user", user);
             response.sendRedirect("/profile");
         } else {
-            response.sendRedirect("/login");
+            request.setAttribute("stickyUsername", username);
+            request.getRequestDispatcher("WEB-INF/login.jsp").forward(request, response);
         }
     }
 }
