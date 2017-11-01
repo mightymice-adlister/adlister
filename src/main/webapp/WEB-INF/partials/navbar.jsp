@@ -12,8 +12,8 @@
                     <span class="point-logo">!</span></span></a>
                 </div>
                 <div class="col s5">
-                    <ul class="right hide-on-sm-and-down">
-                        <ul class="right hide-on-med-and-down">
+                    <ul class="right">
+                        <ul class="right">
                             <li><a href="/login">Login</a></li>
                             <li><a href="/register">Register!</a></li>
                             <li><a href="/ads">Ads</a></li>
@@ -36,7 +36,7 @@
 
             </div>
             <div class="col s5">
-                <ul class="right hide-on-sm-and-down">
+                <ul class="right">
 
                     <ul id="dropdown1" class="dropdown-content">
                         <li><a>Ads</a></li>
@@ -45,7 +45,7 @@
                         <li><a href="/ads/search">Search</a></li>
                         <li><a href="/ads/view">View All</a></li>
                     </ul>
-                    <ul class="right hide-on-med-and-down">
+                    <ul class="right">
                         <li><a class="custom-chip-link" href="/profile"><div class="chip custom-chip"><img src="https://source.unsplash.com/collection/159213/300x300?sig="><c:out value="${user.username}"/></div></a></li>
                         <li><a href="/profile">Profile</a></li>
                         <li><a href="/logout">Logout</a></li>
