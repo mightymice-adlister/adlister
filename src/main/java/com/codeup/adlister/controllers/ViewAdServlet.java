@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.List;
 
 @WebServlet(name = "ViewAdServlet", urlPatterns = "/ads/view")
 public class ViewAdServlet extends HttpServlet {
@@ -22,6 +23,14 @@ public class ViewAdServlet extends HttpServlet {
         }else {
             System.out.println(request.getParameter("id"));
             request.setAttribute("ad", DaoFactory.getAdsDao().viewOneAd(Long.valueOf(request.getParameter("id"))));
+            List<String> categories = DaoFactory.getAdsDao().viewOneAd(Long.valueOf(request.getParameter("id"))).getCatName();
+            String categoriesString = "";
+            for(String category: categories){
+                categoriesString += category+", ";
+            }
+            categoriesString = categoriesString.substring(0, categoriesString.length()-2);
+            request.setAttribute("catString", categoriesString);
+
             request.getRequestDispatcher("/WEB-INF/ads/view.jsp").forward(request, response);
         }
     }
