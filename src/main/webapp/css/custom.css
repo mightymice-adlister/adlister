@@ -22,6 +22,11 @@ main {
 
 }
 
+.errorText {
+    margin: -17px 0 0 43px;
+    color: red;
+}
+
 .custom-chip-link{
 
     /*line-height: 250%;*/
