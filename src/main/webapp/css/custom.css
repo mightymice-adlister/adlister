@@ -22,6 +22,15 @@ main {
 
 }
 
+.btn-controls .btn{
+    position: relative;
+    z-index: 99;
+    bottom: 100px;
+    right: -25%;
+    height: 26px;
+    line-height: 30px;
+}
+
 .custom-chip-link{
 
     /*line-height: 250%;*/
