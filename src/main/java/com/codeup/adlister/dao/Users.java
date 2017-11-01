@@ -9,4 +9,5 @@ public interface Users {
     Long insert(User user);
     void updateProfile(User user, String newEmail, String firstName, String lastName, String dayNumber, String eveningNumber, String bio);
     void changePassword(User user, String newPassword);
+    User findByUserId(Long Id);
 }

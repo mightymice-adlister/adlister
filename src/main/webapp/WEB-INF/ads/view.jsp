@@ -11,6 +11,7 @@
 <div>
     <h2><c:out value="${ad.title}"/></h2>
     <p><c:out value="${ad.description}"/></p>
+    <p>Ad created by: <c:out value="${adUser.username}"/></p>
 </div>
 
 <jsp:include page="/WEB-INF/partials/footer.jsp" />
