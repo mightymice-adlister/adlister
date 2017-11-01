@@ -15,10 +15,11 @@
 
         <form action="/ads/create" method="post">
                 <label for="title">Title</label>
+            <p class="invalid"><c:out value="${titleIsEmpty}" /></p>
                 <input id="title"
                        name="title"
                        value="<c:out value="${titleEntered}"/>" type="text">
-                <p><c:out value="${titleIsEmpty}" /></p>
+
 
                 <div class="input-field col s12">
                     <select name="catIds" multiple>
@@ -31,12 +32,12 @@
                 </div>
 
 
-                <p><c:out value="${catIdIsEmpty}" /></p>
+                <p class="invalid"><c:out value="${catIdIsEmpty}" /></p>
 
             <div class="form-group">
                 <label for="description">Description</label>
                 <textarea id="description" name="description" class="form-control" type="text"><c:out value="${descriptionEntered}"/></textarea>
-                <p><c:out value="${descriptionIsEmpty}" /></p>
+                <p class="invalid"><c:out value="${descriptionIsEmpty}" /></p>
             </div>
             <input type="submit" class="btn btn-block btn-primary">
         </form>
