@@ -31,7 +31,7 @@
                     <span class="user-text left">Welcome, <c:out value="${sessionScope.user.username}" /></span>
             </div>
             <div class="col s2 center-align">
-                <a href="/login" class="brand-logo center"><span class="hoverable">Shamlister
+                <a href="/ads" class="brand-logo center"><span class="hoverable">Shamlister
                 <span class="point-logo">!</span></span></a>
 
             </div>
