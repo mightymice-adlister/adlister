@@ -24,7 +24,16 @@
                     <select name="catIds" multiple>
                         <option value="" disabled selected>Choose your option</option>
                         <c:forEach var="category" items="${categories}">
-                            <option name="catIds" value="<c:out value="${category.id}"/>">${category.name}</option>
+                            <option name="catIds" value="<c:out value="${category.id}"/>"
+                                    <%--<c:if test="${catIdsEntered != null}">--%>
+                                    <c:forEach var="catIdEntered" items="${catIdsEntered}">
+
+                                        <c:if test="${category.id == catIdEntered}">
+                                            selected
+                                        </c:if>
+                                    </c:forEach>
+                                    <%--</c:if>--%>
+                            >${category.name}</option>
                         </c:forEach>
                     </select>
                     <label>Select Your Category/Categories</label>
