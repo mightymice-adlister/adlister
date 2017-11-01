@@ -22,6 +22,7 @@ public class ViewAdServlet extends HttpServlet {
         }else {
             System.out.println(request.getParameter("id"));
             request.setAttribute("ad", DaoFactory.getAdsDao().viewOneAd(Long.valueOf(request.getParameter("id"))));
+            request.setAttribute("adUser", DaoFactory.getUsersDao().findByUserId(DaoFactory.getAdsDao().viewOneAd(Long.valueOf(request.getParameter("id"))).getUserId()));
             request.getRequestDispatcher("/WEB-INF/ads/view.jsp").forward(request, response);
         }
     }

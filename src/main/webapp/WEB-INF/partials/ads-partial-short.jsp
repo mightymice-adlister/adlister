@@ -1,4 +1,6 @@
-
+<%@ page import="com.codeup.adlister.models.User" %>
+<%@ page import="com.codeup.adlister.dao.DaoFactory" %>
+<%@ page import="com.codeup.adlister.models.Ad" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
@@ -14,11 +16,16 @@
             </form>
                 <a href="/ads/edit?id=${ad.id}" class="waves-effect waves-light btn">Edit</a>
         </c:if>
+        <% Ad pageAd = (Ad)request.getAttribute("ad");
+            Long adUserId = pageAd.getUserId();
+         User adUser= DaoFactory.getUsersDao().findByUserId(adUserId);
+        request.setAttribute("adUser", adUser);%>
     </div>
     <div class="col s6">
         <div class="card small">
             <div class="card-image">
                 <img src="https://source.unsplash.com/collection/190727/350x350?sig=${ad.id}">
+                <p class="card-title"><em>@<c:out value="${adUser.username}"/> </em></p>
                 <span class="card-title"><c:out value = "${ad.title}"/></span>
             </div>
             <div class="card-content">
