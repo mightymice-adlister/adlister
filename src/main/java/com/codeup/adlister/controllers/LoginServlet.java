@@ -30,11 +30,16 @@ public class LoginServlet extends HttpServlet {
 
         // validate input
         boolean inputHasErrors = username.isEmpty()
-                || password.isEmpty();
+                || password.isEmpty() || user == null;
         if (inputHasErrors) {
             if (username.isEmpty()) {
                 usernameIsEmpty = "Please enter a valid username";
                 request.setAttribute("usernameIsEmpty", usernameIsEmpty);
+            }
+
+            if(user == null) {
+                request.setAttribute("stickyUsername", username);
+                request.setAttribute("usernameNotFound", "We could not find this username");
             }
 
             if (password.isEmpty()) {
@@ -46,10 +51,6 @@ public class LoginServlet extends HttpServlet {
             request.getRequestDispatcher("WEB-INF/login.jsp").forward(request, response);
             return;
         }
-        if (user == null) {
-            response.sendRedirect("/login");
-            return;
-        }
 
         boolean validAttempt = Password.check(password, user.getPassword());
 
@@ -59,6 +60,11 @@ public class LoginServlet extends HttpServlet {
         } else {
             request.setAttribute("stickyUsername", username);
             request.getRequestDispatcher("WEB-INF/login.jsp").forward(request, response);
+        }
+
+        if (user == null) {
+            response.sendRedirect("/login");
+            return;
         }
     }
 }
