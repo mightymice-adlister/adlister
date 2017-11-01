@@ -27,7 +27,7 @@
     </div>
     <div class="footer-copyright">
         <div class="container">
-            © 2017 Copyright The Mighty Mice @ Codeup
+            &#169 2017 Copyright The Mighty Mice @ Codeup
         </div>
     </div>
 </footer>
