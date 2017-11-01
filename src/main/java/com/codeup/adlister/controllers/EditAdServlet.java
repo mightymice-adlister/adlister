@@ -25,8 +25,9 @@ public class EditAdServlet extends HttpServlet {
 		Ad ad = DaoFactory.getAdsDao().viewOneAd(adId);
 
 
-		String description = request.getParameter("description");
-		String title = request.getParameter("title");
+
+		String description = request.getParameter("description").trim();
+		String title = request.getParameter("title").trim();
 		String titleIsEmpty;
 		String descriptionIsEmpty;
 		String catIdIsEmpty;
@@ -44,7 +45,8 @@ public class EditAdServlet extends HttpServlet {
 		if (inputHasErrors) {
 			if (description.isEmpty()) {
 				descriptionIsEmpty = "Please enter a description";
-				request.setAttribute("descriptionIsEmpty", descriptionIsEmpty);
+			request.setAttribute("descriptionIsEmpty", descriptionIsEmpty);
+
 			}
 			if (title.isEmpty()) {
 				titleIsEmpty = "Please enter a title";
@@ -58,6 +60,10 @@ public class EditAdServlet extends HttpServlet {
 			}
 			request.setAttribute("categories", DaoFactory.getCategoriesDao().All());
 			request.setAttribute("descriptionEntered", description);
+			request.getParameter("id");
+			request.setAttribute("ad", ad);
+			List<Long> catsFromAd = ad.getCatId();
+			request.setAttribute("catsFromAd", catsFromAd);
 			request.getRequestDispatcher("/WEB-INF/ads/edit.jsp").forward(request, response);
 		} else {
 			String [] categoryId = request.getParameterValues("catIds");
