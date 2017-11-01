@@ -65,6 +65,12 @@ public class CreateAdServlet extends HttpServlet {
                 catIdIsEmpty = "Please select a category";
                 request.setAttribute("catIdIsEmpty", catIdIsEmpty);
             }
+            String [] categoryId = request.getParameterValues("catIds");
+            List<Long> catIdsEntered = new ArrayList<>();
+            for(String catId: categoryId){
+                catIdsEntered.add(Long.valueOf(catId));
+            }
+            request.setAttribute("catIdsEntered", catIdsEntered);
             request.setAttribute("descriptionEntered", description);
             request.setAttribute("categories", DaoFactory.getCategoriesDao().All());
             request.getRequestDispatcher("/WEB-INF/ads/create.jsp").forward(request, response);
