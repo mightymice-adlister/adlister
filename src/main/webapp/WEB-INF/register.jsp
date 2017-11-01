@@ -31,6 +31,7 @@
                 <label for="confirm_password">Confirm Password</label>
                 <input id="confirm_password" name="confirm_password" class="form-control" type="password">
                 <p class="invalid"><c:out value="${passwordConfirmationIsEmpty}" /></p>
+                <p class="invalid"><c:out value="${passwordsDoNotMatch}" /></p>
             </div>
             <input type="submit" class="btn btn-primary btn-block">
         </form>
