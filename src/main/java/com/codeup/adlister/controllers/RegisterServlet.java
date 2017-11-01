@@ -30,6 +30,7 @@ public class RegisterServlet extends HttpServlet {
         String emailIsEmpty;
         String passwordIsEmpty;
         String passwordConfirmationIsEmpty;
+        String passwordsDoNotMatch;
 
         System.out.println("Here's the username: " + username);
         // validate input
@@ -56,6 +57,10 @@ public class RegisterServlet extends HttpServlet {
             if (passwordConfirmation.isEmpty()) {
                 passwordConfirmationIsEmpty = "Please confirm your password";
                 request.setAttribute("passwordConfirmationIsEmpty", passwordConfirmationIsEmpty);
+            }
+            if (! password.equals(passwordConfirmation)){
+                passwordsDoNotMatch = "Passwords do not match";
+                request.setAttribute("passwordsDoNotMatch", passwordsDoNotMatch);
             }
             request.getRequestDispatcher("WEB-INF/register.jsp").forward(request, response);
             return;
