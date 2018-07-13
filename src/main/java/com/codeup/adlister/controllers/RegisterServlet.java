@@ -92,5 +92,6 @@ public class RegisterServlet extends HttpServlet {
         request.setAttribute("password", password);
         request.setAttribute("usernameIsUnique", usernameIsUnique);
         request.getRequestDispatcher("WEB-INF/register.jsp").forward(request, response);
+//        boop
     }
 }
