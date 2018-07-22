@@ -13,7 +13,7 @@
 
     <h1>Edit your Ad</h1>
 
-    <form action="/ads/edit" method="post">
+    <form action="/ads/edit?id=${ad.id}" method="post">
             <label for="title">Title</label>
             <input id="title"
                    name="title"
